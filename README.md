@@ -168,9 +168,37 @@ Found a bug or have a feature idea? [Open an issue](https://github.com/nabinkdl/
 
 If you're updating course catalogs, edit the relevant `courseData*.ts` file for the program and syllabus you are targeting. Do not change calculation logic unless you can reference the official PU grading policy.
 
-## Privacy
+## Privacy Policy
 
-This app runs entirely in your browser. Grades, retake records, elective choices, and student details are stored in `localStorage` on your device. No accounts, cookies, or external API calls are involved.
+The full privacy policy is available in the app at `/privacy` and in this repository below.
+
+Your privacy is important.
+
+This GPA Calculator stores all academic data locally on your device using your browser's storage. No grades, personal information, or academic records are transmitted to, collected by, or stored on any external server.
+
+### What Data Is Stored?
+
+- Subjects and grades entered by you
+- SGPA and CGPA calculation records
+- Application preferences and settings
+
+### What Data Is Collected?
+
+None. This application does not collect, track, sell, or share any personal information.
+
+### Data Security
+
+Since all data remains on your device, you have full control over it. Clearing your browser data or uninstalling the application may permanently remove stored information.
+
+### Third-Party Services
+
+This application does not use analytics, advertising, or third-party tracking services that collect personal data.
+
+### Disclaimer
+
+This application is an independent project created for Pokhara University Bachelor of Engineering students. It is not affiliated with, endorsed by, or officially associated with Pokhara University.
+
+By using this application, you acknowledge that GPA calculations are provided for informational purposes only and should be verified against official university records when necessary.
 
 ## License
 
@@ -179,3 +207,5 @@ This project is licensed under the [MIT License](LICENSE).
 ---
 
 Made with ♥️ for Pokhara University BE students by [Nabin Kandel](https://github.com/nabinkdl) ([@nabinkdl](https://instagram.com/nabinkdl)).
+
+If this tool helped you, consider [buying me a momo](https://buymemomo.com/nabinkdl) ☕

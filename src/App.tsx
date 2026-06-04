@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useMemo } from "react";
+import { Link } from "react-router-dom";
 import { programRegistry } from "./registry";
 import {
   Program,
@@ -353,12 +354,12 @@ export default function App() {
               </select>
 
               <a
-                href="https://pu.edu.np"
+                href="https://buymemomo.com/nabinkdl"
                 target="_blank"
                 rel="noreferrer"
                 className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-slate-600 hover:text-slate-900 hover:bg-slate-100 rounded-lg transition"
               >
-                PU.edu <ExternalLink className="w-3.5 h-3.5" />
+                Donation ♥️
               </a>
             </div>
           </div>
@@ -648,98 +649,58 @@ export default function App() {
         </div>
       </section>
 
+      {/* SUPPORT */}
+      <section className="max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 no-print">
+        <div className="rounded-2xl border border-amber-200 bg-gradient-to-r from-amber-50 to-orange-50 px-6 py-5 text-center shadow-xs">
+          <p className="text-sm text-slate-700">
+            If this tool helped you, consider{" "}
+            <a
+              href="https://buymemomo.com/nabinkdl"
+              target="_blank"
+              rel="noreferrer"
+              className="font-semibold text-amber-700 hover:text-amber-800 underline underline-offset-2 transition-colors"
+            >
+              consider supporting
+            </a>{" "}
+            🥟☕️
+          </p>
+        </div>
+      </section>
+
       {/* FOOTER */}
       <footer
         id="main_gpa_footer"
-        className="bg-white border-t border-slate-200 py-10 mt-12 no-print"
+        className="bg-white border-t border-slate-200 py-8 mt-12 no-print"
       >
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-8 pb-8 border-b border-slate-100">
-            <div className="sm:col-span-2 lg:col-span-3">
-              <h4 className="font-bold text-sm mb-3 text-slate-800">About</h4>
-              <p className="text-xs text-slate-500">
-                GPA Calculator designed for Pokhara University Bachelor of
-                Engineering students. Calculate SGPA and CGPA accurately, with
-                support for retake and back exam tracking. All data is stored
-                locally on your device and never uploaded to any server.
-              </p>
-            </div>
-
-            <div className="lg:col-span-2">
-              <h4 className="font-bold text-sm mb-3 text-slate-800">
-                Information
-              </h4>
-              <ul className="text-xs text-slate-500 space-y-1">
-                <li>• Grading System: Pokhara University Standard</li>
-                <li>• Institution: Pokhara University</li>
-                <li>• Designed for BE Programs</li>
-              </ul>
-            </div>
-
-            <div className="lg:col-span-3">
-              <h4 className="font-bold text-sm mb-3 text-slate-800">
-                Disclaimer
-              </h4>
-              <p className="text-xs text-slate-500">
-                This application is an independent student project and is not
-                affiliated with, endorsed by, or officially associated with
-                Pokhara University.
-              </p>
-            </div>
-
-            <div className="lg:col-span-2">
-              <h4 className="font-bold text-sm mb-3 text-slate-800">
-                Contact
-              </h4>
-              <ul className="text-xs text-slate-500 space-y-1">
-                <li>
-                  <a
-                    href="https://github.com/nabinkdl/PU-GPA-Tracker"
-                    target="_blank"
-                    rel="noreferrer"
-                    className="text-indigo-600 hover:text-indigo-500 transition-colors"
-                  >
-                    github.com/nabinkdl/PU-GPA-Tracker
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="https://instagram.com/nabinkdl"
-                    target="_blank"
-                    rel="noreferrer"
-                    className="text-indigo-600 hover:text-indigo-500 transition-colors"
-                  >
-                    @nabinkdl
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="mailto:hi.nabinkdl@gmail.com"
-                    className="text-indigo-600 hover:text-indigo-500 transition-colors"
-                  >
-                    hi.nabinkdl@gmail.com
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </div>
-
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-6 text-xs text-slate-400">
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-400">
             <div>
-              © 2026 GPA Calculator • Made with ❤️ by Nabin Kandel for PU
-              Engineering Students
+              © 2026 GPA Calculator • Made with ❤️ for PU BE Students.
             </div>
 
-            <a
-              href="https://pu.edu.np"
-              target="_blank"
-              rel="noreferrer"
-              className="text-indigo-600 hover:text-indigo-500 transition-colors"
-            >
-              Pokhara University
-            </a>
+            <div className="flex items-center gap-4">
+              <Link
+                to="/about"
+                className="text-indigo-600 hover:text-indigo-500 transition-colors"
+              >
+                About
+              </Link>
+              <Link
+                to="/privacy"
+                className="text-indigo-600 hover:text-indigo-500 transition-colors"
+              >
+                Privacy Policy
+              </Link>
+              <a
+                href="https://pu.edu.np"
+                target="_blank"
+                rel="noreferrer"
+                className="text-indigo-600 hover:text-indigo-500 transition-colors"
+              >
+                Pokhara University
+              </a>
+            </div>
           </div>
-
         </div>
       </footer>
 
