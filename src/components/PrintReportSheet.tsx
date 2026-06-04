@@ -199,7 +199,7 @@ export default function PrintReportSheet({
                 {/* Semester Header Line */}
                 <div className="bg-slate-100 px-4 py-2 border-b border-slate-350 flex justify-between items-center">
                   <h3 className="font-extrabold text-slate-900 text-xs">
-                    {sem.name.toUpperCase()} PERFORMANCE LEDGER
+                    {sem.name.toUpperCase()}
                   </h3>
                   <div className="flex gap-4 font-mono text-[10px] text-slate-700 font-bold">
                     <span>
