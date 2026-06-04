@@ -2,7 +2,7 @@
 
 A free, open-source academic calculator for **Pokhara University Bachelor of Engineering (BE)** students. Enter your semester grades to get **SGPA**, **CGPA**, equivalent **letter grade**, and **percentage** — with support for retakes, backlogs, electives, and printable reports. Runs entirely in the browser with no sign-up required.
 
-**[Live demo](https://cgpa-calculator-be-pokhara-universi.vercel.app/)** · **[GitHub](https://github.com/nabinkdl/PU-GPA-Tracker)**
+**[Live demo](https://pu-gpa-tracker.vercel.app/)** · **[GitHub](https://github.com/nabinkdl/PU-GPA-Tracker)**
 
 ---
 
