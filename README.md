@@ -192,7 +192,7 @@ Since all data remains on your device, you have full control over it. Clearing y
 
 ### Third-Party Services
 
-This application does not use analytics, advertising, or third-party tracking services that collect personal data.
+This application uses [Vercel Web Analytics](https://vercel.com/docs/analytics) for anonymous page-view metrics only. It does not receive grades or other calculator data. We do not use advertising or other third-party tracking services.
 
 ### Disclaimer
 

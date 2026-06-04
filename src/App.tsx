@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useMemo } from "react";
 import { Link } from "react-router-dom";
+import { Analytics } from "@vercel/analytics/next"
 import { programRegistry } from "./registry";
 import {
   Program,

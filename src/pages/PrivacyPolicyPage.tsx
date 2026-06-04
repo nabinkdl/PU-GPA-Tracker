@@ -64,14 +64,16 @@ export default function PrivacyPolicyPage() {
               information.
             </p>
           </section>
-
-          <section>
+           <section>
             <h2 className="font-bold text-slate-800 mb-2">Third-Party Services</h2>
             <p className="leading-relaxed">
-              This application does not use analytics, advertising, or third-party tracking
-              services that collect personal data.
+              We use{" "}  Web Analytics
+              {" "}
+              to collect anonymous page views and basic usage metrics. It does not receive
+              your grades, student details, or other data you enter in the calculator.
+              We do not use advertising or other third-party tracking services.
             </p>
-          </section>
+          </section> 
 
           <section>
             <h2 className="font-bold text-slate-800 mb-2">Disclaimer</h2>
