@@ -1,8 +1,8 @@
-# Pokhara University SGPA & CGPA Calculator
+# Pokhara University SGPA, CGPA, Grade & Percentage Calculator
 
-A free, open-source GPA calculator for **Pokhara University Bachelor of Engineering (BE)** students. Track semester grades, calculate SGPA and CGPA, handle retakes and backlogs, and export printable reports — all in the browser with no sign-up required.
+A free, open-source academic calculator for **Pokhara University Bachelor of Engineering (BE)** students. Enter your semester grades to get **SGPA**, **CGPA**, equivalent **letter grade**, and **percentage** — with support for retakes, backlogs, electives, and printable reports. Runs entirely in the browser with no sign-up required.
 
-**[Live demo](https://cgpa-calculator-be-pokhara-universi.vercel.app/)**
+**[Live demo](https://cgpa-calculator-be-pokhara-universi.vercel.app/)** · **[GitHub](https://github.com/nabinkdl/PU-GPA-Tracker)**
 
 ---
 
@@ -12,7 +12,7 @@ A free, open-source GPA calculator for **Pokhara University Bachelor of Engineer
 - **Old & new syllabus support** — Switch between syllabus modes; course lists update automatically
 - **Elective selection** — Pick specific elective courses (Elective I, II, III) in upper semesters
 - **Retake & backlog tracking** — Mark retaken courses and optionally exclude F grades from GPA
-- **Instant calculations** — SGPA, CGPA, percentage, and letter grade update as you enter grades
+- **Instant calculations** — SGPA, CGPA, letter grade, and percentage update as you enter grades
 - **Target CGPA planner** — See the SGPA you need in remaining semesters to hit a goal
 - **CSV export & import** — Back up grades, download a blank template, or restore from a spreadsheet
 - **Printable report** — Generate a clean grade sheet with student details for printing or sharing
@@ -50,7 +50,38 @@ Pokhara University uses a 4.0 honor-point scale:
 - **CGPA** = Cumulative Quality Points ÷ Cumulative Credit Hours (across all graded semesters)
 - **Quality Points** = Credit Hours × Honor Point for each course
 
-Percentage is derived from CGPA using the official PU lookup table built into the app.
+## Grade & Percentage
+
+Alongside SGPA and CGPA, the calculator shows your cumulative **letter grade** and **percentage** based on Pokhara University's official conversion rules.
+
+### Letter grade from CGPA
+
+| CGPA Range | Letter Grade |
+|------------|--------------|
+| 4.00 | A |
+| 3.70 – 3.99 | A- |
+| 3.30 – 3.69 | B+ |
+| 3.00 – 3.29 | B |
+| 2.70 – 2.99 | B- |
+| 2.30 – 2.69 | C+ |
+| 2.00 – 2.29 | C |
+| 1.70 – 1.99 | C- |
+| 1.30 – 1.69 | D+ |
+| 1.00 – 1.29 | D |
+| Below 1.00 | F |
+
+### Percentage from CGPA
+
+Percentage is looked up from CGPA using PU's official conversion table (every 0.01 step from 2.00 to 4.00). A CGPA below 2.00 does not map to a percentage.
+
+| CGPA | Percentage | CGPA | Percentage |
+|------|------------|------|------------|
+| 2.00 | 60.0% | 3.00 | 75.0% |
+| 2.50 | 67.5% | 3.50 | 82.5% |
+| 2.75 | 70.9% | 3.75 | 85.9% |
+| 4.00 | 90.0% | | |
+
+These values appear in the **Grand CGPA** panel and on the printable report sheet.
 
 ## Getting Started
 
@@ -62,8 +93,8 @@ Percentage is derived from CGPA using the official PU lookup table built into th
 ### Installation
 
 ```bash
-git clone https://github.com/<your-username>/pokhara-university-be-software-sgpa_cgpa-calculator.git
-cd pokhara-university-be-software-sgpa_cgpa-calculator
+git clone https://github.com/nabinkdl/PU-GPA-Tracker.git
+cd PU-GPA-Tracker
 npm install
 ```
 
@@ -127,11 +158,13 @@ The static site is output to the `dist/` folder and can be deployed to any stati
 
 Contributions are welcome — whether that's fixing course data, adding a new program, improving calculations, or polishing the UI.
 
-1. Fork the repository
+1. Fork the [repository](https://github.com/nabinkdl/PU-GPA-Tracker)
 2. Create a feature branch: `git checkout -b feature/your-feature`
 3. Make your changes and verify with `npm run lint && npm run build`
 4. Commit with a clear message
-5. Open a pull request describing what you changed and why
+5. Open a [pull request](https://github.com/nabinkdl/PU-GPA-Tracker/pulls) describing what you changed and why
+
+Found a bug or have a feature idea? [Open an issue](https://github.com/nabinkdl/PU-GPA-Tracker/issues).
 
 If you're updating course catalogs, edit the relevant `courseData*.ts` file for the program and syllabus you are targeting. Do not change calculation logic unless you can reference the official PU grading policy.
 
@@ -145,4 +178,4 @@ This project is licensed under the [MIT License](LICENSE).
 
 ---
 
-Made with ♥️ for Pokhara University BE students by [Nabin Kandel](https://instagram.com/nabinkdl).
+Made with ♥️ for Pokhara University BE students by [Nabin Kandel](https://github.com/nabinkdl) ([@nabinkdl](https://instagram.com/nabinkdl)).

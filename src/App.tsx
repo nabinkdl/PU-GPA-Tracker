@@ -694,6 +694,16 @@ export default function App() {
               <ul className="text-xs text-slate-500 space-y-1">
                 <li>
                   <a
+                    href="https://github.com/nabinkdl/PU-GPA-Tracker"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="text-indigo-600 hover:text-indigo-500 transition-colors"
+                  >
+                    github.com/nabinkdl/PU-GPA-Tracker
+                  </a>
+                </li>
+                <li>
+                  <a
                     href="https://instagram.com/nabinkdl"
                     target="_blank"
                     rel="noreferrer"
