@@ -96,7 +96,10 @@
   </script>
 
   <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <link rel="icon" type="image/png" href="/favicon.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/favicon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
 
   <!-- Canonical URL -->
   <link
@@ -106,7 +109,26 @@
 </head>
 
 <body>
-  <div id="root"></div>
+  <div id="root">
+    <!-- Beautiful Academic Preloader -->
+    <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; background-color: #0f172a; color: #ffffff; font-family: system-ui, -apple-system, sans-serif;">
+      <i data-lucide="graduation-cap" style="width: 48px; height: 48px; color: #6366f1; margin-bottom: 16px; animation: pulse-glow 2s infinite ease-in-out;"></i>
+      <h1 style="font-size: 1.5rem; font-weight: 600; margin: 0; background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; letter-spacing: -0.025em;">PU GPA Tracker</h1>
+      <p style="font-size: 0.875rem; color: #64748b; margin-top: 8px;">Loading SGPA & CGPA Calculator...</p>
+      <style>
+        @keyframes pulse-glow {
+          0%, 100% { opacity: 1; transform: scale(1); filter: drop-shadow(0 0 0px rgba(99, 102, 241, 0)); }
+          50% { opacity: .6; transform: scale(1.08); filter: drop-shadow(0 0 12px rgba(99, 102, 241, 0.6)); }
+        }
+      </style>
+    </div>
+  </div>
+  
+  <!-- Lucide Icons CDN for Preloader -->
+  <script src="https://unpkg.com/lucide@0.300.0"></script>
+  <script>
+    lucide.createIcons();
+  </script>
   <script type="module" src="/src/main.tsx"></script>
 </body>
 
