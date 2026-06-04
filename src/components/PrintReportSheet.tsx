@@ -70,34 +70,34 @@ export default function PrintReportSheet({
             <p className="text-sm font-bold text-slate-700">
               {getProgramName(program)} &middot; Grade Ledger
             </p>
-            <div className="text-[11px] text-slate-500 mt-2 flex items-center gap-2">
+            <div className="text-[11px] text-slate-500 mt-2 flex flex-wrap items-center gap-2">
               <span className="bg-slate-100 font-semibold px-2 py-0.5 rounded text-slate-700">
                 Syllabus Mode: {syllabusMode.toUpperCase()}
               </span>
+              {/* <span className={`font-semibold px-2 py-0.5 rounded ${excludeF ? "bg-amber-50 text-amber-800 border border-amber-200" : "bg-slate-100 text-slate-700"}`}>
+                F Grades: {excludeF ? "Excluded" : "Included"}
+              </span> */}
               <span>&bull;</span>
               <span>Report Generated: {new Date().toLocaleDateString("en-NP", { year: "numeric", month: "long", day: "numeric" })}</span>
             </div>
           </div>
 
-          {/* ESTIMATED CUMULATIVE GPA BADGE */}
+          {/* Program & Syllabus badge only */}
           <div className="text-right border-l border-slate-200 pl-6 flex flex-col justify-center">
             <span className="text-[9px] font-black tracking-widest text-slate-400 uppercase block mb-1">
-              ESTIMATED CGPA
+              {getProgramName(program)}
             </span>
-            <div className="text-4xl font-black text-slate-950 leading-none">
-              {cumulativeResult.cgpa !== null ? cumulativeResult.cgpa.toFixed(2) : "0.00"}
-            </div>
-            <span className="text-[11px] font-bold text-slate-700 mt-1">
-              Grade Letter: {cumulativeResult.grade}
+            <span className="text-[11px] font-bold text-slate-700">
+              Syllabus: {syllabusMode.toUpperCase()}
             </span>
           </div>
         </div>
       </div>
 
       {/* ── STUDENT IDENTITY & PLANNER DETAILS ─────────── */}
-      <div className="grid grid-cols-12 gap-5 mb-6">
-        {/* Student Details Grid */}
-        <div className="col-span-7 bg-slate-50 border border-slate-200 rounded-xl p-4 flex flex-col justify-between">
+      <div className="flex flex-col gap-4 mb-6">
+        {/* Row 1: Academic Record Profile */}
+        <div className="bg-slate-50 border border-slate-200 rounded-xl p-4 flex flex-col justify-between">
           <div>
             <span className="text-[9px] font-bold text-slate-400 uppercase tracking-widest block mb-2">
               Academic Record Profile
@@ -118,8 +118,33 @@ export default function PrintReportSheet({
           </div>
         </div>
 
-        {/* Academic Analytics Cards */}
-        <div className="col-span-5 grid grid-cols-2 gap-3">
+        {/* Row 2: CGPA Card (between Academic Record Profile and Syllabus Credits) */}
+        <div className="bg-slate-900 border border-slate-800 rounded-xl p-4 flex items-center justify-between">
+          <div>
+            <span className="text-[9px] font-black tracking-widest text-slate-400 uppercase block mb-1">
+              Estimated CGPA
+            </span>
+            <div className="text-4xl font-black text-purple-600 leading-none">
+              {cumulativeResult.cgpa !== null ? cumulativeResult.cgpa.toFixed(2) : "0.00"}
+              <span className="text-slate-400 text-base font-semibold ml-1">/4.0</span>
+            </div>
+            {excludeF && (
+              <span className="inline-block mt-2 text-[9px] font-bold px-2 py-0.5 rounded bg-amber-900/60 text-amber-300 border border-amber-700 uppercase tracking-wider">
+                F Grade Excluded from CGPA
+              </span>
+            )}
+          </div>
+          <div className="text-right">
+            <span className="text-[9px] font-bold text-slate-400 uppercase block mb-1">Grade Letter</span>
+            <span className="text-2xl font-black text-black">{cumulativeResult.grade}</span>
+            <div className="text-[10px] text-slate-400 mt-1">
+              {cumulativeResult.percentage ? `${cumulativeResult.percentage.toFixed(1)}%` : "—"}
+            </div>
+          </div>
+        </div>
+
+        {/* Row 3: Syllabus Credits & Analytics Cards */}
+        <div className="grid grid-cols-4 gap-3">
           <div className="bg-slate-50 border border-slate-200 rounded-xl p-3 text-center flex flex-col justify-center">
             <span className="text-[9px] font-bold text-slate-400 uppercase tracking-wider block mb-1">
               Syllabus Credits
@@ -218,9 +243,8 @@ export default function PrintReportSheet({
                             {course.credits}
                           </td>
                           <td
-                            className={`py-2 px-4 text-center font-black text-sm ${
-                              isF ? "text-rose-600" : "text-emerald-700"
-                            }`}
+                            className={`py-2 px-4 text-center font-black text-sm ${isF ? "text-rose-600" : "text-emerald-700"
+                              }`}
                           >
                             {grVal}
                           </td>
@@ -276,7 +300,11 @@ export default function PrintReportSheet({
           </div>
         </div>
         <p className="text-[9px] text-slate-500 leading-normal mt-3">
-          * This scorecard sheet is an unofficial academic grade estimation, intended solely for planning and simulation of undergraduate credit evaluations.
+          This scorecard sheet is an unofficial academic grade estimation, intended solely for planning and simulation of undergraduate credit evaluations.
+          {/* {excludeF
+            ? " F grades (backlogs) are excluded from the calculated SGPA/CGPA values (backlog-exclusion mode active)."
+            : " F grades (backlogs) are included in the calculated SGPA/CGPA values with 0.0 grade points."}
+         */}
         </p>
       </div>
     </div>
