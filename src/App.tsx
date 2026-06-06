@@ -360,7 +360,7 @@ export default function App() {
                 rel="noreferrer"
                 className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-slate-600 hover:text-slate-900 hover:bg-slate-100 rounded-lg transition"
               >
-                Donation ♥️
+                Drop ♥️
               </a>
             </div>
           </div>
