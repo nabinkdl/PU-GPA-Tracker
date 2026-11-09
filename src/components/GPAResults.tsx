@@ -18,7 +18,7 @@ import {
   generateExportFilename,
   importStateFromCSV,
 } from "../exportImport";
-import { calculateCumulativeGPA, calculateRequiredSGPA } from "../utils";
+import { getGradeFromCGPA, getPercentageFromCGPA } from "../mapping";
 
 interface GPAResultsProps {
   excludeF: boolean;
@@ -48,7 +48,7 @@ export function GPAResults({
   onStudentDetailsChange,
 }: GPAResultsProps) {
   const [showCSVImport, setShowCSVImport] = useState(false);
-  const [targetCGPA, setTargetCGPA] = useState<string>("3.50");
+  const [quickCGPA, setQuickCGPA] = useState<string>("");
   const [replaceExisting, setReplaceExisting] = useState<boolean>(false);
   const [csvImportError, setCSVImportError] = useState<string | null>(null);
   const [csvImportSummary, setCSVImportSummary] = useState<{
@@ -164,22 +164,13 @@ export function GPAResults({
     if (file) readFile(file);
   };
 
-  const cumulativeResult = calculateCumulativeGPA(semesters, grades, retakes, excludeF);
-  const allCourses = semesters.flatMap((sem) => sem.courses);
-  const earnedCredits = allCourses
-    .filter((c) => (grades[c.code] || "") !== "")
-    .reduce((sum, c) => sum + c.credits, 0);
-  const remainingCredits = allCourses
-    .filter((c) => (grades[c.code] || "") === "")
-    .reduce((sum, c) => sum + c.credits, 0);
-
-  const targetVal = parseFloat(targetCGPA) || 0;
-  const projection = calculateRequiredSGPA(
-    targetVal,
-    cumulativeResult.cgpa,
-    earnedCredits,
-    remainingCredits
-  );
+  const quickCGPAValue = quickCGPA.trim() === "" ? null : parseFloat(quickCGPA);
+  const hasQuickCGPA =
+    quickCGPAValue !== null && !isNaN(quickCGPAValue) && quickCGPAValue >= 2 && quickCGPAValue <= 4;
+  const quickCGPAOutOfRange =
+    quickCGPAValue !== null && !isNaN(quickCGPAValue) && !hasQuickCGPA;
+  const quickGrade = hasQuickCGPA ? getGradeFromCGPA(quickCGPAValue) : null;
+  const quickPercentage = hasQuickCGPA ? getPercentageFromCGPA(quickCGPAValue) : null;
 
   return (
     <div className="flex flex-col gap-5">
@@ -232,95 +223,87 @@ export function GPAResults({
         </div>
       </div>
 
-      {/* ── Required GPA Target Projection ── */}
+      {/* ── Quick CGPA → Grade & Percentage ── */}
       <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
         <div className="flex items-center gap-2 mb-4">
           <span className="flex h-6 w-6 items-center justify-center rounded-lg bg-indigo-50 border border-indigo-100">
             <TrendingUp className="h-3.5 w-3.5 text-indigo-600" />
           </span>
-          <h3 className="font-bold text-slate-800 text-sm">Required GPA Target Projection</h3>
+          <h3 className="font-bold text-slate-800 text-sm">Quick CGPA → Grade & Percentage</h3>
         </div>
 
         <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-5 border border-slate-100 p-4 rounded-xl bg-slate-50/50">
           <div className="flex-1 space-y-1">
             <p className="text-xs text-slate-500 max-w-lg leading-relaxed">
-              Find out what average SGPA is required in your remaining semesters component courses to reach a target CGPA.
+              Already have your overall CGPA? Enter it below to instantly see the equivalent letter grade and percentage.
             </p>
-            <div className="flex flex-wrap items-center gap-x-4 gap-y-1 mt-1 text-[11px] font-medium text-slate-400">
-              <span>Earned Credits: <strong className="text-slate-600">{earnedCredits} cr</strong></span>
-              <span>•</span>
-              <span>Remaining Credits: <strong className="text-slate-600">{remainingCredits} cr</strong></span>
-              {cumulativeResult.cgpa !== null && (
-                <>
-                  <span>•</span>
-                  <span>Current CGPA: <strong className="text-slate-600">{cumulativeResult.cgpa.toFixed(2)}</strong></span>
-                </>
-              )}
-            </div>
+            <p className="text-[11px] font-medium text-slate-400 mt-1">
+              Conversion follows the Pokhara University CGPA table (2.00 – 4.00).
+            </p>
           </div>
 
           <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 shrink-0">
             {/* Input field */}
-            <div className="w-full sm:w-32 relative">
-              <label className="block text-[9px] font-bold text-slate-400 uppercase tracking-wider mb-1">
-                Target CGPA
+            <div className="w-full sm:w-32">
+              <label
+                htmlFor="quick-cgpa"
+                className="block text-[9px] font-bold text-slate-400 uppercase tracking-wider mb-1"
+              >
+                Your CGPA
               </label>
               <input
+                id="quick-cgpa"
                 type="number"
-                min="0.0"
-                max="4.0"
+                min="2.00"
+                max="4.00"
                 step="0.01"
-                placeholder="3.5"
-                value={targetCGPA}
-                onChange={(e) => {
-                  const val = e.target.value;
-                  if (val === "" || (parseFloat(val) >= 0 && parseFloat(val) <= 4.0)) {
-                    setTargetCGPA(val);
-                  }
-                }}
-                className="w-full rounded-xl border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 outline-none transition-all duration-200 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 hover:border-slate-400"
+                placeholder="3.25"
+                value={quickCGPA}
+                aria-invalid={quickCGPAOutOfRange}
+                onChange={(e) => setQuickCGPA(e.target.value)}
+                className={`w-full rounded-xl border bg-white px-3 py-2 text-sm text-slate-900 outline-none transition-all duration-200 focus:ring-1 ${
+                  quickCGPAOutOfRange
+                    ? "border-rose-400 focus:border-rose-500 focus:ring-rose-500"
+                    : "border-slate-300 focus:border-indigo-500 focus:ring-indigo-500 hover:border-slate-400"
+                }`}
               />
             </div>
 
-            {/* Visual badge indicator */}
-            <div className="w-full sm:w-auto">
-              {remainingCredits === 0 ? (
-                <div className="px-4 py-3 rounded-xl border border-slate-200 bg-slate-100 text-slate-500 text-xs text-center font-bold">
-                  Syllabus complete
-                </div>
-              ) : projection.feasible ? (
-                <div className="px-4 py-2.5 bg-emerald-50 border border-emerald-200 text-emerald-800 rounded-xl flex flex-col items-center sm:items-end justify-center min-w-[140px]">
-                  <span className="text-[10px] uppercase tracking-wider font-bold text-emerald-600/90 leading-none">
-                    Required SGPA
-                  </span>
-                  <span className="text-xl font-extrabold tracking-tight mt-1">
-                    {projection.requiredSGPA !== null ? projection.requiredSGPA.toFixed(2) : "—"}
-                  </span>
-                </div>
-              ) : (
-                <div className="px-4 py-2.5 bg-rose-50 border border-rose-200 text-rose-800 rounded-xl flex flex-col items-center sm:items-end justify-center min-w-[140px]" title={projection.message}>
-                  <span className="text-[10px] uppercase tracking-wider font-bold text-rose-500 leading-none">
-                    Unfeasible
-                  </span>
-                  <span className="text-sm font-bold mt-1 text-center leading-none text-rose-600">
-                    Exceeded Limit ✖
-                  </span>
-                </div>
-              )}
+            {/* Results */}
+            <div className="flex gap-3 w-full sm:w-auto">
+              <div className="flex-1 sm:flex-none px-4 py-2.5 rounded-xl border border-indigo-200 bg-indigo-50 text-indigo-800 flex flex-col items-center justify-center min-w-[110px]">
+                <span className="text-[10px] uppercase tracking-wider font-bold text-indigo-500 leading-none">
+                  Grade
+                </span>
+                <span className="text-2xl font-extrabold tracking-tight mt-1">
+                  {quickGrade ?? "—"}
+                </span>
+              </div>
+
+              <div className="flex-1 sm:flex-none px-4 py-2.5 rounded-xl border border-emerald-200 bg-emerald-50 text-emerald-800 flex flex-col items-center justify-center min-w-[110px]">
+                <span className="text-[10px] uppercase tracking-wider font-bold text-emerald-600/90 leading-none">
+                  Percentage
+                </span>
+                <span className="text-2xl font-extrabold tracking-tight mt-1">
+                  {quickPercentage !== null ? `${quickPercentage.toFixed(2)}%` : "—"}
+                </span>
+              </div>
             </div>
           </div>
         </div>
 
         {/* Informative description banner */}
-        {remainingCredits > 0 && (
-          <div className={`mt-3 p-3.5 rounded-xl border text-xs font-semibold ${
-            projection.feasible 
-              ? 'bg-slate-100 border-slate-200/60 text-slate-700' 
-              : 'bg-rose-50 border-rose-100 text-rose-700'
-          }`}>
-            {projection.message}
-          </div>
-        )}
+        <div className={`mt-3 p-3.5 rounded-xl border text-xs font-semibold ${
+          quickCGPAOutOfRange
+            ? "bg-rose-50 border-rose-100 text-rose-700"
+            : "bg-slate-100 border-slate-200/60 text-slate-700"
+        }`}>
+          {quickCGPAOutOfRange
+            ? "CGPA must be between 2.00 and 4.00 for the Pokhara University conversion table."
+            : !hasQuickCGPA
+              ? "Enter a CGPA between 2.00 and 4.00 to see the grade and percentage."
+              : `A CGPA of ${quickCGPAValue!.toFixed(2)} corresponds to grade ${quickGrade} (${quickPercentage!.toFixed(2)}%).`}
+        </div>
       </div>
 
       {/* ── Student Details ── */}
