@@ -175,54 +175,6 @@ export function GPAResults({
   return (
     <div className="flex flex-col gap-5">
 
-      {/* ── F Grade Handling ── */}
-      <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
-        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-          <div className="flex-1">
-            <h3 className="font-bold text-slate-800 mb-1 flex items-center gap-2 text-sm">
-              <span className="flex h-6 w-6 items-center justify-center rounded-lg bg-slate-100 border border-slate-200">
-                <ShieldAlert className="h-3.5 w-3.5 text-slate-600" />
-              </span>
-              F Grade Handling
-            </h3>
-            <p className="text-xs text-slate-500 ml-[2.125rem]">
-              {excludeF
-                ? "F grades excluded from denominator"
-                : "F grades included in calculation (standard)"}
-            </p>
-          </div>
-
-          {/* Pill toggle switch */}
-          <button
-            onClick={() => onToggleChange(!excludeF)}
-            className="group relative flex h-9 items-center gap-2.5 rounded-full border border-slate-200 bg-slate-50 px-1.5 transition-all duration-300 hover:shadow-sm"
-            aria-label={excludeF ? "Switch to include F grades" : "Switch to exclude F grades"}
-          >
-            <span
-              className={`absolute h-[1.75rem] w-[5.25rem] rounded-full bg-white border border-slate-200 shadow-sm transition-all duration-300 ease-in-out ${
-                excludeF
-                  ? "left-1"
-                  : "left-[calc(100%-5.25rem-0.25rem)]"
-              }`}
-            />
-            <span
-              className={`relative z-10 px-3 py-1 text-xs font-semibold transition-colors duration-300 ${
-                excludeF ? "text-slate-900" : "text-slate-400"
-              }`}
-            >
-              Exclude F
-            </span>
-            <span
-              className={`relative z-10 px-3 py-1 text-xs font-semibold transition-colors duration-300 ${
-                !excludeF ? "text-slate-900" : "text-slate-400"
-              }`}
-            >
-              Include F
-            </span>
-          </button>
-        </div>
-      </div>
-
       {/* ── Quick CGPA → Grade & Percentage ── */}
       <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
         <div className="flex items-center gap-2 mb-4">
@@ -303,6 +255,54 @@ export function GPAResults({
             : !hasQuickCGPA
               ? "Enter a CGPA between 2.00 and 4.00 to see the grade and percentage."
               : `A CGPA of ${quickCGPAValue!.toFixed(2)} corresponds to grade ${quickGrade} (${quickPercentage!.toFixed(2)}%).`}
+        </div>
+      </div>
+
+      {/* ── F Grade Handling ── */}
+      <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+          <div className="flex-1">
+            <h3 className="font-bold text-slate-800 mb-1 flex items-center gap-2 text-sm">
+              <span className="flex h-6 w-6 items-center justify-center rounded-lg bg-slate-100 border border-slate-200">
+                <ShieldAlert className="h-3.5 w-3.5 text-slate-600" />
+              </span>
+              F Grade Handling
+            </h3>
+            <p className="text-xs text-slate-500 ml-[2.125rem]">
+              {excludeF
+                ? "F grades excluded from denominator"
+                : "F grades included in calculation (standard)"}
+            </p>
+          </div>
+
+          {/* Pill toggle switch */}
+          <button
+            onClick={() => onToggleChange(!excludeF)}
+            className="group relative flex h-9 items-center gap-2.5 rounded-full border border-slate-200 bg-slate-50 px-1.5 transition-all duration-300 hover:shadow-sm"
+            aria-label={excludeF ? "Switch to include F grades" : "Switch to exclude F grades"}
+          >
+            <span
+              className={`absolute h-[1.75rem] w-[5.25rem] rounded-full bg-white border border-slate-200 shadow-sm transition-all duration-300 ease-in-out ${
+                excludeF
+                  ? "left-1"
+                  : "left-[calc(100%-5.25rem-0.25rem)]"
+              }`}
+            />
+            <span
+              className={`relative z-10 px-3 py-1 text-xs font-semibold transition-colors duration-300 ${
+                excludeF ? "text-slate-900" : "text-slate-400"
+              }`}
+            >
+              Exclude F
+            </span>
+            <span
+              className={`relative z-10 px-3 py-1 text-xs font-semibold transition-colors duration-300 ${
+                !excludeF ? "text-slate-900" : "text-slate-400"
+              }`}
+            >
+              Include F
+            </span>
+          </button>
         </div>
       </div>
 
